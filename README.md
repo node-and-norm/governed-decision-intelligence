@@ -1,8 +1,12 @@
 # Governed Decision Intelligence (GDI)
 
+[Node & Norm research directory](https://github.com/node-and-norm) · General decision-record architecture and reference implementation.
+
+Repository stewardship moved to Node & Norm on 2026-09-15. Published versions, authorship, and research-status claims retain their existing scope.
+
 ## A decision-record specification for AI-assisted and agent-mediated actions
 
-[![CI](https://github.com/mj3b/governed-decision-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/mj3b/governed-decision-intelligence/actions/workflows/ci.yml)
+[![CI](https://github.com/node-and-norm/governed-decision-intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/node-and-norm/governed-decision-intelligence/actions/workflows/ci.yml)
 [![Status: Open Specification](https://img.shields.io/badge/status-open%20specification-5b6cff)](#research-status)
 [![Specification](https://img.shields.io/badge/specification-v3.0-blue)](spec/GDI_v3_The_Decision_Architecture_for_Governed_AI.pdf)
 [![Schema](https://img.shields.io/badge/GDR%20schema-v2.0-4c8bf5)](schema/gdr.schema.json)
@@ -114,7 +118,7 @@ See [Related work and scope boundary](docs/related-work.md).
 Requirements: Python 3.10 or later.
 
 ```bash
-git clone https://github.com/mj3b/governed-decision-intelligence.git
+git clone https://github.com/node-and-norm/governed-decision-intelligence.git
 cd governed-decision-intelligence
 python -m venv .venv
 source .venv/bin/activate

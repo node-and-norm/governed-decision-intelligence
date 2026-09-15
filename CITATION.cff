@@ -25,7 +25,7 @@ version: "3.0"
 date-released: "2026-04-01"
 license: Apache-2.0
 doi: 10.5281/zenodo.20244601
-repository-code: https://github.com/mj3b/governed-decision-intelligence
+repository-code: https://github.com/node-and-norm/governed-decision-intelligence
 keywords:
   - AI governance
   - decision governance
@@ -45,7 +45,7 @@ references:
     authors:
       - family-names: Banasihan
         given-names: Mark Julius
-    repository-code: https://github.com/mj3b/rgds-independent-study
+    repository-code: https://github.com/node-and-norm/rgds-independent-study
     doi: 10.5281/zenodo.20242004
     license: Apache-2.0
   - type: software
@@ -53,5 +53,5 @@ references:
     authors:
       - family-names: Banasihan
         given-names: Mark Julius
-    repository-code: https://github.com/mj3b/rgds
+    repository-code: https://github.com/node-and-norm/rgds
     license: Apache-2.0
