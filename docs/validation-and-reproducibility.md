@@ -47,7 +47,7 @@ python examples/testvectors-interop/test_driver.py
 python examples/testvectors-interop/gdi_driver.py
 ```
 
-Generated receipts are written to `receipts/gdi/`. Fixtures use fixed timestamps and a public test key so repeated runs produce stable outputs. The key is unsuitable for production.
+Generated receipts are written to `receipts/gdi/`. Fixtures use fixed timestamps and a public test key so repeated runs produce stable outputs. The key is unsuitable for production. The driver evaluates the bundled Cedar policy; its fixed confidence scores and accountability roles are demonstration data. The compact embedded profile is separate from the full GDR schema.
 
 ### Citation metadata
 
@@ -60,9 +60,13 @@ cffconvert --validate
 With Node.js available:
 
 ```bash
-npx @veritasacta/verify receipts/gdi/*.json \
-  --key 4cb5abf6ad79fbf5abbccafcc269d85cd2651ed4b885b5869f241aedf0a5ba29
+for receipt in receipts/gdi/*.json; do
+  npx @veritasacta/verify@0.11.0 "$receipt" \
+    --key 4cb5abf6ad79fbf5abbccafcc269d85cd2651ed4b885b5869f241aedf0a5ba29 || exit 1
+done
 ```
+
+Individual verifier calls check signatures; local regression tests check chain linkage. Use `--previous PREVIOUS_RECEIPT` to check a non-genesis receipt against its predecessor with the external verifier.
 
 The submitted external driver is tracked at `ScopeBlind/agent-governance-testvectors#7`. Its status remains under review until the external repository accepts it.
 
@@ -75,7 +79,7 @@ The submitted external driver is tracked at `ScopeBlind/agent-governance-testvec
 | Gate-classifier tests | The included rules produce expected outputs for tested cases |
 | Hash-integrity tests | Modification to included sealed fields changes the hash |
 | Signature verification | The included test key signed the canonical receipt payload |
-| Chain verification | Each receipt links to the preceding canonical receipt |
+| Chain verification | Each non-genesis receipt links to JCS of the whole preceding signed receipt |
 | CFF validation | Citation metadata follows the declared format |
 
 ## What the tests do not establish

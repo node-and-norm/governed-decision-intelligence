@@ -1,3 +1,4 @@
+cedarpy==4.8.7
 cffconvert @ git+https://github.com/citation-file-format/cffconvert.git@b6045d78aac9e02b039703b030588d54d53262ac
 cryptography==49.0.0
 jsonschema[format]==4.26.0

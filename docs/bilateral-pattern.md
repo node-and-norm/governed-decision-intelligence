@@ -2,14 +2,20 @@
 
 Single-receipt architectures answer one question. The bilateral pattern answers two.
 
-A post-execution receipt proves an action occurred and was policy-compliant. It does not prove the reasoning that preceded it was sound. A pre-execution receipt proves the reasoning was sound at decision time. It does not prove the action that followed matched the intent.
+A post-execution receipt can authenticate a recorded outcome under a supplied key.
+A pre-execution receipt can authenticate a recorded intent. Neither establishes
+that the contents are true, the reasoning was sound, or execution matched policy.
 
-The bilateral pattern closes both gaps by chaining a pre-execution GDR receipt to a post-execution result receipt. The chain link between them proves the two receipts belong to the same decision event and that the pre-execution record was not produced after the fact.
+The proposed bilateral pattern links those two records so reviewers can compare
+intent and outcome. A hash link establishes a commitment to the predecessor's
+bytes. Trusted execution evidence, timing, and logging controls are separately
+needed to establish that intent was recorded before the action occurred.
+This workflow is not implemented by the current interoperability driver.
 
 ```
 Receipt 1: sha256(JCS(GDR))        ← sealed before execution
      │
-     │  previous_receipt_hash
+     │  previousReceiptHash
      ▼
 Receipt 2: sha256(JCS(result))     ← sealed after execution
 ```
@@ -24,7 +30,7 @@ The bilateral pattern applies when all three conditions hold:
 2. The agent has authority to execute consequential actions autonomously (Gate 2 or Gate 3 decisions).
 3. A third party — regulator, counterparty, auditor — needs to verify both sides independently without trusting the operator's infrastructure.
 
-For Gate 1 routine decisions at low risk, a single receipt is sufficient. For Gate 4 escalations, execution halts before a second receipt is needed. The bilateral pattern applies most directly to Gate 2 and Gate 3.
+Whether a single receipt is sufficient depends on the deployment evidence requirements. For Gate 4 escalations, execution halts before a second receipt is needed. The bilateral pattern applies most directly to Gate 2 and Gate 3.
 
 ---
 
@@ -53,25 +59,29 @@ Receipt 2 carries the execution result: what the tool returned, whether it match
 {
   "receipt_2_payload": {
     "result_hash": "sha256(JCS(execution_result))",
-    "previous_receipt_hash": "sha256(JCS(Receipt_1))",
+    "previousReceiptHash": "sha256(JCS(Receipt_1))",
     "execution_matched_intent": true,
     "signed": "after execution"
   }
 }
 ```
 
-The chain link is the integrity guarantee. Receipt 2 cannot reference a Receipt 1 that does not exist, and Receipt 1 cannot be backdated without breaking the chain.
+The link detects changes to the referenced signed receipt. A signer can construct both receipts later with arbitrary timestamps; the chain alone cannot rule out backdating.
 
 ---
 
-## Implementation
+## Implementation sketch
+
+The following is conceptual pseudocode, not an API implemented by the local driver.
+For the ScopeBlind compatibility envelope, the link is `payload.previousReceiptHash`;
+genesis omits it and each later link hashes the whole signed predecessor.
 
 ```python
 # Pre-execution: seal the GDR into Receipt 1
 gdr = build_gdr(tool_name, tool_input, context, decision, policy_id)
 receipt_1 = build_receipt(gdr_payload=gdr, prev_hash=None)
-receipt_1_canonical = jcs(receipt_1)
-receipt_1["signature"] = private_key.sign(receipt_1_canonical).hex()
+receipt_1["signature"] = private_key.sign(jcs(receipt_1)).hex()
+receipt_1_canonical = jcs(receipt_1)  # signature included in the chain target
 write_to_log(receipt_1)
 
 # Execute the action
@@ -80,26 +90,23 @@ result = execute_tool(tool_name, tool_input)
 # Post-execution: seal the result into Receipt 2, chained to Receipt 1
 receipt_2 = build_receipt(
     result_payload=result,
-    prev_hash=sha256(receipt_1_canonical),
+    prev_hash="sha256:" + sha256(receipt_1_canonical).hexdigest(),
 )
 receipt_2_canonical = jcs(receipt_2)
 receipt_2["signature"] = private_key.sign(receipt_2_canonical).hex()
 write_to_log(receipt_2)
 ```
 
-Both receipts verify independently against `@veritasacta/verify`. The chain link is verified by walking `previous_receipt_hash` back to the genesis receipt.
+A concrete implementation must construct valid envelopes, verify each signature with a trusted key, and check each `payload.previousReceiptHash` against the whole signed predecessor. The sketch itself is not a conformance result.
 
 ---
 
-## Regulatory Coverage
+## Evidence use
 
-| Regulation | Requirement | Bilateral Coverage |
-|------------|-------------|-------------------|
-| EU AI Act Art. 12 | Automatic logging of decisions | Receipt 1 (intent) + Receipt 2 (outcome) |
-| EU AI Act Art. 14 | Human oversight with ability to intervene | Receipt 1 seals the accountability chain before execution |
-| SOC 2 Type II | Evidence of controls operating effectively | Chained receipts provide tamper-evident bilateral evidence |
-| ISO 42001 A.6.2.8 | Event logs for AI system actions | Both receipts written to immutable log |
-| NIST AI RMF GOVERN | Accountability structures | Receipt 1 names the accountability chain at decision time |
+Linked intent and outcome records may support a governance review. They do not
+establish that human oversight occurred, controls operated effectively, or a legal
+requirement was satisfied. See [Framework evidence mapping](framework-compatibility.md)
+for the repository's interpretive mappings and their limits.
 
 ---
 
