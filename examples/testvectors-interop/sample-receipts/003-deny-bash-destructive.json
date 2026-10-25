@@ -1,25 +1,24 @@
 {
   "algorithm": "ed25519",
-  "issued_at": "2026-04-27T13:09:19Z",
+  "issued_at": "2026-07-16T00:00:03Z",
   "issuer": "gdi:governed-decision-intelligence",
   "kid": "SmczC4A9XIh1evuTKGFTRA",
-  "parent_receipt_hash": "sha256:39b8a0fdce1c3d40e1f0297aebbd90b65fc8f19474272d64b15dbbe2d30c3d9e",
   "payload": {
     "action": {
       "kind": "Bash",
-      "target": "testvectors-session-001"
+      "target": "gdi-repro-001"
     },
     "decision": "deny",
     "gdr": {
       "accountability_chain": [
         {
-          "identity": "session:testvectors-session-001",
+          "identity": "session:gdi-repro-001",
           "responsibility": "policy_evaluation",
           "role": "agent_runtime"
         },
         {
           "identity": "human:operator",
-          "responsibility": "threshold_approval",
+          "responsibility": "threshold_and_policy_approval",
           "role": "governance_owner"
         }
       ],
@@ -42,32 +41,33 @@
         }
       ],
       "gate_classification": "blocked",
-      "gdr_timestamp": "2026-04-27T13:09:19Z",
+      "gdr_timestamp": "2026-07-16T00:00:03Z",
       "gdr_version": "2.0",
       "policy_id": "autoresearch-safe",
-      "reasoning_reconstruction": "Bash evaluated against autoresearch-safe. Gate: blocked. Confidence 0.15 below threshold or forbid matched. Action blocked.",
+      "reasoning_reconstruction": "Bash evaluated against autoresearch-safe. Gate: blocked. Fixture confidence 0.15. Forbid matched or no permit applied. Action blocked.",
       "sequence": 3,
-      "session_id": "testvectors-session-001",
+      "session_id": "gdi-repro-001",
       "tool_input": {
         "command": "rm -rf /"
       },
       "tool_name": "Bash"
     },
     "params_hash": "sha256:2f3b94579f43fb59e8df8ecf8d8a231a288b641d262c4c425043c107e8e72b82",
-    "policy_digest": "sha256:a5a2bbc76844fee5d737edf5a1aac83aaf5759ecd205db9c61c8bf5a30c36175",
+    "policy_digest": "sha256:81ba074a4843cb722407feb2a9c43ec1ac4c8e19fd057dc19962af8aef9c05af",
     "policy_id": "autoresearch-safe",
-    "prev_hash": "sha256:39b8a0fdce1c3d40e1f0297aebbd90b65fc8f19474272d64b15dbbe2d30c3d9e",
+    "previousReceiptHash": "sha256:5ae2dbe83db8f3ec38b8d0ef362bbec8ca9773c27aef1a2bbf0552f0f51d09c2",
     "reason_code": "policy_deny",
+    "result_hash": "sha256:c770a8a4623f3891dd212cd3c6407ed61fcdc79b419d25ff6160bb4235daea95",
     "sequence": 3,
-    "session_id": "testvectors-session-001",
+    "session_id": "gdi-repro-001",
     "tier": "evidenced",
-    "timestamp": "2026-04-27T13:09:19Z",
+    "timestamp": "2026-07-16T00:00:03Z",
     "tool": "Bash",
     "type": "scopeblind.receipt.v2"
   },
   "pubkey": "4cb5abf6ad79fbf5abbccafcc269d85cd2651ed4b885b5869f241aedf0a5ba29",
   "sequence": 3,
+  "signature": "4b220d7367e3d96173c5d35bb3d601e5211b21bc6a3654e19cf92409454f159c4e8917310119cf0de671285325499d2c7205605ca715312d41f23f216ac6e30a",
   "type": "decision_receipt",
-  "v": 2,
-  "signature": "08e7077190ef0751e44eb7c7dc1e04069774f6cc7e72d935c55e838c3bb1c7a53ec185c76e6b35f65b6fcca1d749b84fce185bfe846a24fb042b9c454a861709"
+  "v": 2
 }

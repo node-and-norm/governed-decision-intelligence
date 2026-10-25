@@ -1,108 +1,103 @@
-# GDI Conformance Driver — Veritas Acta Receipt Standard
+# GDI signed-receipt interoperability example
 
-This directory contains the GDI conformance driver for [`ScopeBlind/agent-governance-testvectors`](https://github.com/ScopeBlind/agent-governance-testvectors), the cross-implementation conformance repository for [`draft-farley-acta-signed-receipts`](https://datatracker.ietf.org/doc/draft-farley-acta-signed-receipts/) (IETF).
+This local example embeds a compact demonstration GDR profile in the
+`decision_receipt` compatibility envelope used by
+[ScopeBlind/agent-governance-testvectors](https://github.com/ScopeBlind/agent-governance-testvectors).
+It is not the full GDR contract in `schema/gdr.schema.json`, nor a claim of
+conformity to the published Acta 2.1 envelope.
 
-**Conformance PR (pending review):** [ScopeBlind/agent-governance-testvectors#7](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7)
-**AGT discussion (open):** [microsoft/agent-governance-toolkit#276](https://github.com/microsoft/agent-governance-toolkit/discussions/276)
+The upstream adapter lives in `implementations/gdi/` in that separate repository.
+[PR #7](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7) remains
+open as of 2026-10-25. This example follows the receipt corrections reviewed in
+[commit f979177](https://github.com/ScopeBlind/agent-governance-testvectors/commit/f9791775bf13021401b6a5529b96334a58b178be).
+The upstream adapter runs four suite fixtures. This repository retains its three
+local reproducibility fixtures, fixed timestamps, and session identifiers; its
+outputs are not a replacement for the upstream suite's expected chain.
 
----
+## What this demonstrates
 
-## What This Demonstrates
+The driver evaluates `fixtures/policy/autoresearch-safe.cedar` with `cedarpy`.
+That file preserves the exact policy bytes from upstream commit `f979177`.
+Cedar parse or evaluation errors stop the run. Expected outcomes in the input
+fixtures are test assertions only and never drive the evaluator.
 
-Standard conformance drivers produce receipts that capture the policy outcome (allow/deny), the policy identifier, and chain integrity fields.
+The embedded profile records a fixture confidence score, gate label, deterministic
+explanation, input-field presence, and illustrative accountability roles. Scores
+and gate labels come from a fixed lookup table. No confidence threshold is applied;
+field presence does not establish evidence completeness, and `human:operator`
+does not record a person's approval. No tool executes.
 
-The GDI driver goes further. It embeds a full Governed Decision Record in the receipt's `payload.gdr` field, sealing pre-decision reasoning state before the tool fires:
+The core GDI gate classifier is separate: it applies institutional routing rules
+and confidence thresholds to supplied policy results. Its gate taxonomy and
+record-hash contract are unchanged by this receipt adapter.
 
-| GDR Field | What It Captures |
-|-----------|-----------------|
-| `confidence_score` | Numeric score against institutional thresholds |
-| `gate_classification` | `routine`, `elevated_review`, `mandatory_escalation`, `blocked`, or `deferred` |
-| `reasoning_reconstruction` | Plain-language explanation derived from structured fields only |
-| `evidence_sources` | Completeness classification per input source |
-| `accountability_chain` | Named roles and responsibilities |
+## Receipt integrity
 
-The binding between receipt integrity and GDR content:
+- Canonicalization uses RFC 8785 (`rfc8785`).
+- The Ed25519 signature covers JCS of the envelope without `signature`.
+- `payload.result_hash` is `"sha256:"` plus SHA-256 hex of JCS of the compact GDR.
+- Genesis omits `payload.previousReceiptHash`. Each subsequent link hashes JCS
+  of the whole previous signed receipt, including its signature.
+- `payload.policy_digest` uses the `acta-policy-digest-v1` manifest over the exact
+  Cedar bytes evaluated, with engine `cedar` and file name `autoresearch-safe.cedar`.
 
-```
-result_hash = sha256(JCS(GDR))
-```
+Regenerate local receipts after this correction: the link fields, policy digest,
+and explanation bytes change, so signatures and downstream hashes also change.
 
-Receipt integrity (attribution, ordering, tamper detection) is independent of payload semantics. An auditor verifies the receipt offline with `@veritasacta/verify`. A governance reviewer reads GDR fields from the attested payload. Both operations work without trusting the operator's infrastructure.
+These are adapter conventions. They do not redefine the core GDR schema or its
+hash profile. A signature authenticates bytes under the supplied key; it does not
+establish reasoning quality, execution, human oversight, or trustworthy timing.
+All signing key material in this example is public test material.
 
----
+The driver evaluates and signs the entire batch before replacing prior output.
+Evaluation or malformed-input failures preserve existing receipts. Filesystem
+failures during replacement are not covered by an atomic directory transaction.
 
-## The Layer Distinction
+## Run and verify
 
-The receipt answers: **was this record tampered with?**
-
-The GDR answers: **was this decision sound before it reached policy evaluation?**
-
-These are adjacent questions with different answerers. Receipt verification is cryptographic and automated. GDR review is institutional and human. The combination provides the evidence structure that regulated deployments require: a tamper-evident record of sound pre-execution reasoning.
-
----
-
-## Sample Receipt
-
-`sample-receipts/003-deny-bash-destructive.json` demonstrates a blocked decision: a `Bash` tool call attempting `rm -rf /` evaluated against the `autoresearch-safe` Cedar policy.
-
-Key fields in the sealed GDR:
-
-```json
-{
-  "gate_classification": "blocked",
-  "confidence_score": 0.15,
-  "reasoning_reconstruction": "Bash evaluated against autoresearch-safe. Gate: blocked. Confidence 0.15 below threshold or forbid matched. Action blocked.",
-  "tool_input": { "command": "rm -rf /" }
-}
-```
-
-The full GDR is sealed inside the signed receipt. The signature was produced before execution. The action never fired. The record exists regardless.
-
----
-
-## Running Locally
-
-**Requirements:** Python 3.10+
+From the repository root, using Python 3.10 or later:
 
 ```bash
-pip install cryptography
-
-# From the repo root
-python3 examples/testvectors-interop/gdi_driver.py
+python -m venv .venv
+. .venv/bin/activate
+python -m pip install -r requirements-dev.txt
+python examples/testvectors-interop/gdi_driver.py
+python examples/testvectors-interop/test_driver.py
 ```
 
-Receipts are written to `receipts/gdi/` (mirroring the testvectors repo layout).
+Receipts are written to `receipts/gdi/`. The checked-in
+[`003-deny-bash-destructive.json`](sample-receipts/003-deny-bash-destructive.json)
+is the deterministic third receipt, including its link to the generated second
+receipt. It records Cedar's denial of the destructive Bash fixture; no Bash
+command is executed.
 
-**Verify signatures:**
+With Node/npm available, verify each receipt separately:
 
 ```bash
-npx @veritasacta/verify receipts/gdi/*.json \
-  --key 4cb5abf6ad79fbf5abbccafcc269d85cd2651ed4b885b5869f241aedf0a5ba29
+for receipt in receipts/gdi/*.json; do
+  npx @veritasacta/verify@0.11.0 "$receipt" \
+    --key 4cb5abf6ad79fbf5abbccafcc269d85cd2651ed4b885b5869f241aedf0a5ba29 || exit 1
+done
 ```
 
-The keypair is the shared conformance test keypair from `agent-governance-testvectors/fixtures/keys/README.md`. Do not use in production.
+The public key is supplied independently of the receipt. Individual signature
+verification does not walk the chain; the local regression tests check signed
+predecessor linkage. The verifier also accepts `--previous PREVIOUS_RECEIPT` for
+checking each non-genesis receipt against its predecessor.
 
----
+## Validation scope
 
-## Conformance Results
+Local tests cover deterministic outcomes, signatures, GDR digest binding, exact
+policy-byte digests, changed policies, Cedar errors, chain scope, JCS edge cases,
+nested inputs, failed-batch preservation, stale output, and sample reproduction.
+The aggregate repository validator runs them alongside the core classifier,
+schema, and citation checks.
 
-All three checks pass against the `ScopeBlind/agent-governance-testvectors` conformance suite:
+External acceptance is tracked in PR #7. Passing local tests does not establish
+acceptance by ScopeBlind or deployed governance effectiveness.
 
-| Check | Result |
-|-------|--------|
-| Schema (v2 envelope) | PASS |
-| Ed25519 signatures (`@veritasacta/verify`) | PASS |
-| Chain order + `parent_receipt_hash` linkage | PASS |
+The [bilateral pattern](../../docs/bilateral-pattern.md) proposes linking intent
+and outcome records. This driver emits one receipt per fixture and does not
+implement that execution workflow.
 
----
-
-## Relationship to the Bilateral Pattern
-
-The conformance driver implements single-receipt governance (pre-execution only). The bilateral pattern extends this by chaining a second receipt to the execution result, providing cryptographic proof that the action matched the authorized intent.
-
-See: [`../../docs/bilateral-pattern.md`](../../docs/bilateral-pattern.md)
-
----
-
-*Part of the Governed Decision Intelligence (GDI) specification. Apache 2.0.*
-*[https://github.com/mj3b/governed-decision-intelligence](https://github.com/mj3b/governed-decision-intelligence)*
+*Apache 2.0. Part of Governed Decision Intelligence.*
