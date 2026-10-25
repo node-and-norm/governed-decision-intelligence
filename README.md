@@ -37,7 +37,7 @@ GDI approaches this question through artifact construction, schema validation, d
 | Core specification | v3.0 | Published PDF and DOI | Independent peer review remains pending |
 | GDR schema contract | v2.0 | Draft 2020-12 JSON Schema and validated example | Schema validity does not establish decision quality |
 | Gate classifier | Reference implementation | 114 deterministic internal tests | Test coverage does not establish domain calibration |
-| Interoperability driver | External PR under review | Local signed-receipt checks and submitted conformance driver | External conformance has not been accepted |
+| Interoperability driver | External PR under review | [12 local regression tests and three receipts verified with Acta 0.11.0](examples/testvectors-interop/README.md); [external PR #7](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7) pending | External conformance has not been accepted |
 | Framework mappings | Interpretive analysis | Source-linked evidence mapping | No legal compliance or certification claim |
 | Decision Evidence Applicability Specification | v0.2.0 working specification | Revised thesis, determination states, adjacent-system boundary, and acceptance conditions | Schema, authoritative mappings, overlays, cases, and reviews remain in development |
 | Field validation | Planned | No deployment study published | External validity remains open |
@@ -239,7 +239,8 @@ governed-decision-intelligence/
 │   ├── insurance-claims/
 │   └── testvectors-interop/
 ├── fixtures/
-│   └── inputs/
+│   ├── inputs/
+│   └── policy/
 ├── docs/
 │   ├── framework-compatibility.md
 │   ├── related-work.md
