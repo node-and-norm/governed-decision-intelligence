@@ -254,6 +254,10 @@ governed-decision-intelligence/
     └── decision-evidence-portability-v0.1.md  # deprecated migration pointer
 ```
 
+## Open-source contribution and technical review
+
+Mark Julius Banasihan contributed the original GDI receipt driver in [ScopeBlind PR #7](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7). ScopeBlind maintainer [@tomjwxf](https://github.com/tomjwxf) provided technical review and revised the driver’s policy evaluation, canonicalization, receipt chaining and tests, preserving the four original commits. See the [contribution and review record](docs/scopeblind-contribution-review.md). As checked on 29 October 2026, the PR remains open; the maintainer reports passing checks on the revised implementation. These checks concern the receipt adapter and do not establish GDI’s institutional effectiveness.
+
 ## Release and review policy
 
 A numbered release requires:

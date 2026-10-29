@@ -8,7 +8,7 @@ conformity to the published Acta 2.1 envelope.
 
 The upstream adapter lives in `implementations/gdi/` in that separate repository.
 [PR #7](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7) remains
-open as of 2026-10-25. This example follows the receipt corrections reviewed in
+open as checked on 29 October 2026. This example follows the receipt corrections reviewed in
 [commit f979177](https://github.com/ScopeBlind/agent-governance-testvectors/commit/f9791775bf13021401b6a5529b96334a58b178be).
 The upstream adapter runs four suite fixtures. This repository retains its three
 local reproducibility fixtures, fixed timestamps, and session identifiers; its
@@ -101,3 +101,7 @@ and outcome records. This driver emits one receipt per fixture and does not
 implement that execution workflow.
 
 *Apache 2.0. Part of Governed Decision Intelligence.*
+
+## Contribution and review acknowledgment
+
+Mark Julius Banasihan contributed the original upstream driver. ScopeBlind maintainer [@tomjwxf](https://github.com/tomjwxf) reviewed and revised it in [f979177](https://github.com/ScopeBlind/agent-governance-testvectors/commit/f9791775bf13021401b6a5529b96334a58b178be), preserving the four original commits. The [maintainer’s account](https://github.com/ScopeBlind/agent-governance-testvectors/pull/7#issuecomment-6390516611) distinguishes those contributions and reports the upstream checks. See the [dated contribution and review record](../../docs/scopeblind-contribution-review.md). The upstream suite’s four fixtures and this repository’s three local fixtures remain distinct.
