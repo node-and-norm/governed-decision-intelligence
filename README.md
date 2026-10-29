@@ -1,5 +1,15 @@
 # Governed Decision Intelligence (GDI)
 
+## Research summary
+
+Specification & reference implementation. A decision-record specification, gate classifier and signed-receipt demonstration. Internal checks establish limited properties of the supplied records and fixtures.
+
+Specify decision evidence, record alternatives and authority, and test whether required information survives into an inspectable record.
+
+[Findings, use, limits and next steps](docs/research-summary.md), reviewed 29 October 2026.
+
+
+
 [Node & Norm research directory](https://github.com/node-and-norm) · General decision-record architecture and reference implementation.
 
 Repository stewardship moved to Node & Norm on 2026-09-15. Published versions, authorship, and research-status claims retain their existing scope.
