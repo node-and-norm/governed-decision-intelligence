@@ -8,6 +8,8 @@ Specify decision evidence, record alternatives and authority, and test whether r
 
 [Findings, use, limits and next steps](docs/research-summary.md), reviewed 29 October 2026.
 
+[AI use, human responsibility and verification limits](docs/ai-use-disclosure.md), reviewed November 3, 2026.
+
 
 
 [Node & Norm research directory](https://github.com/node-and-norm) · General decision-record architecture and reference implementation.
