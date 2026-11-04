@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="224" height="26" viewBox="0 0 224 26" role="img" aria-labelledby="title desc">
+<title id="title">Declared license: Apache-2.0</title>
+<desc id="desc">Project metadata. Follow the surrounding link for its source and scope.</desc>
+<rect x=".5" y=".5" width="223" height="25" rx="3" fill="#191820" stroke="#B5AFFF"/>
+<path d="M132 1V25" stroke="#B5AFFF"/>
+<g font-family="Arial, Helvetica, sans-serif" font-size="12" text-anchor="middle"><text x="66.0" y="17" fill="#F7F7F4">Declared license</text><text x="178.0" y="17" fill="#B5AFFF">Apache-2.0</text></g>
+</svg>
