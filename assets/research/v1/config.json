@@ -1,0 +1,37 @@
+{
+  "title": "Governed Decision Intelligence",
+  "purpose": "Recording the grounds for a consequential decision.",
+  "mobile_title_lines": [
+    "Governed Decision",
+    "Intelligence"
+  ],
+  "mobile_purpose_lines": [
+    "Recording the grounds for",
+    "a consequential decision."
+  ],
+  "sources": [
+    "docs/research-summary.md",
+    "RESEARCH.md"
+  ],
+  "badges": [
+    {
+      "label": "Status",
+      "value": "Reference implementation",
+      "href": "RESEARCH.md",
+      "id": "status"
+    },
+    {
+      "label": "Citation",
+      "value": "3.0",
+      "href": "CITATION.cff",
+      "id": "version"
+    },
+    {
+      "label": "Declared license",
+      "value": "Apache-2.0",
+      "href": "LICENSE",
+      "id": "license"
+    }
+  ],
+  "desktop_title_size": 40
+}

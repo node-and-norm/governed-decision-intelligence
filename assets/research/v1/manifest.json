@@ -1,0 +1,26 @@
+{
+  "asset_version": "1.0.0-draft",
+  "config": "projects/governed-decision-intelligence/config.json",
+  "input_hashes": {
+    "projects/governed-decision-intelligence/config.json": "8ee654f95cd9e4b33ae9de7c06deeac5b1e22c4daa1eba27af5ce119e4a27def",
+    "tokens.json": "ddb30f6bbffed2fd978b24cd8195365c737337aeea609c40e16dd0d87110fde0",
+    "generate.py": "ac709d59bb4ccdb0d47b413c994a6bb8cabce58fd43c7ec2ad2906398f126a8e",
+    "generate_catalog.py": "99f34b99a90148e5327656cf432b0685d999a8c1f681892ddbf9126f7278b66d"
+  },
+  "source_hashes": {
+    "assets/brand/current/logo.svg": "def26d7e6887ce1c1846ea3929816df9b9c6484f30679642d003724c3df85f55",
+    "assets/brand/current/banner.svg": "178e1018845b43ba22de409d389ee48860163b229ea8fbca2ad164c4d5d28df6"
+  },
+  "files": {
+    "banner-light.svg": "d1632d68c8cbc9b942772892b3e87ce364df19dc0e8fe2bea6a95ef3454cac4b",
+    "banner-mobile-light.svg": "d915b0318a0826b4285f7baed2b2091d00d88513c49c6a6140737b42b3f4846d",
+    "badges/status-light.svg": "bd08bc9469b42bc286f2c5009f9bba92a18081b91d1c84633cb21115b6655422",
+    "badges/version-light.svg": "dea35296e4194f60a12a2db00ee8d3d78ad6661c9980783c082a6672623c26aa",
+    "badges/license-light.svg": "c7dd1e9dced90fc3303ebbfc047209a0591f96dfee9544cd1547eec9031a941d",
+    "banner-dark.svg": "b2092b11bdd762360ccd766b50c91d6e6bba2368f179590d0c5f60f5433b3ef9",
+    "banner-mobile-dark.svg": "826c7b1ccdd800d56147abe57282c6faf0a7b2684aa3adb655247453bf3e1dd6",
+    "badges/status-dark.svg": "02ffae648c654975ddd6fcb68a18cfbe873d3fb880052392c4b4e3d69404d73e",
+    "badges/version-dark.svg": "6aa123039542f8582480342d0de06dcfbccda65ecff896f1c057119ca322f0d4",
+    "badges/license-dark.svg": "3e46ce64c224038b273f9c3cd59f24cf3d34f804913d1058fb31157e71b5d6aa"
+  }
+}

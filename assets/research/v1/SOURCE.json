@@ -1,0 +1,20 @@
+{
+  "repository": "node-and-norm/.github",
+  "commit": "cae1260c05b686a30f51580ae96ec705428c8535",
+  "path": "assets/research/v1/projects/governed-decision-intelligence",
+  "copied_file_sha256": {
+    "banner-light.svg": "d1632d68c8cbc9b942772892b3e87ce364df19dc0e8fe2bea6a95ef3454cac4b",
+    "config.json": "8ee654f95cd9e4b33ae9de7c06deeac5b1e22c4daa1eba27af5ce119e4a27def",
+    "banner-mobile-light.svg": "d915b0318a0826b4285f7baed2b2091d00d88513c49c6a6140737b42b3f4846d",
+    "manifest.json": "309523467ecf8f77686de19af578bbefce89ad7b6291573984a1710d061fa064",
+    "banner-dark.svg": "b2092b11bdd762360ccd766b50c91d6e6bba2368f179590d0c5f60f5433b3ef9",
+    "banner-mobile-dark.svg": "826c7b1ccdd800d56147abe57282c6faf0a7b2684aa3adb655247453bf3e1dd6",
+    "badges/license-dark.svg": "3e46ce64c224038b273f9c3cd59f24cf3d34f804913d1058fb31157e71b5d6aa",
+    "badges/version-dark.svg": "6aa123039542f8582480342d0de06dcfbccda65ecff896f1c057119ca322f0d4",
+    "badges/license-light.svg": "c7dd1e9dced90fc3303ebbfc047209a0591f96dfee9544cd1547eec9031a941d",
+    "badges/status-light.svg": "bd08bc9469b42bc286f2c5009f9bba92a18081b91d1c84633cb21115b6655422",
+    "badges/status-dark.svg": "02ffae648c654975ddd6fcb68a18cfbe873d3fb880052392c4b4e3d69404d73e",
+    "badges/version-light.svg": "dea35296e4194f60a12a2db00ee8d3d78ad6661c9980783c082a6672623c26aa"
+  },
+  "integration": "Dark banner and badges in both browser themes. Mobile title uses explicit line breaks."
+}
