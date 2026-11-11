@@ -1,3 +1,9 @@
+> **Research status, 11 November 2026: reference implementation with bounded fixture evidence.**
+>
+> **Held:** A specification, reference implementation and checks on record structure, selected routing rules and signed demonstration receipts.
+>
+> **Open:** Factual truth of records, reviewer understanding, host enforcement and effective control in a deployed setting. The upstream receipt driver remains in review; fixture checks do not establish full protocol conformance or upstream acceptance.
+
 <h1>
 <picture>
   <source media="(max-width: 600px)" srcset="assets/research/v1/banner-mobile-dark.svg">
