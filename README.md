@@ -40,14 +40,7 @@ The host application carries out storage, human review and action enforcement. A
 
 ## Method in brief
 
-```mermaid
-flowchart LR
-  accTitle: GDI decision record and host responsibilities
-  accDescr: Structured inputs feed a gate classifier. The classifier returns a record and review flags. The host stores the record, obtains required review and enforces its action decision. Outcomes can then be recorded.
-  A["Action, evidence<br/>and authority"] -->|classifies| B["Gate and<br/>decision record"]
-  B -->|returns review flags| C["Host storage, review<br/>and enforcement"]
-  C -->|records subsequent result| D["Action and<br/>outcome record"]
-```
+![Structured inputs feed a gate classifier. The classifier returns a record and review flags. The host stores the record, obtains required review and enforces its action decision. Outcomes can then be recorded.](assets/research/method-in-brief.svg)
 
 The text sequence is: supply decision inputs, classify the action, preserve the record, complete host review and enforcement, and record the outcome. The diagram describes the intended integration path. Host enforcement needs its own implementation and evidence. [Classifier](reference-implementation/gate-classifier/gate_classifier.py), [integration pattern](docs/bilateral-pattern.md).
 
