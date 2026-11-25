@@ -6,8 +6,8 @@
 
 <h1>
 <picture>
-  <source media="(max-width: 600px)" srcset="assets/research/v1/banner-mobile-dark.svg">
-  <img src="assets/research/v1/banner-dark.svg" alt="Governed Decision Intelligence" width="1000">
+  <source media="(max-width: 600px)" srcset="https://raw.githubusercontent.com/node-and-norm/.github/4ee2d5fd660242d84cc6927f9ef842b1ba617056/assets/research/v2/governed-decision-intelligence/banner-mobile.svg">
+  <img src="https://raw.githubusercontent.com/node-and-norm/.github/4ee2d5fd660242d84cc6927f9ef842b1ba617056/assets/research/v2/governed-decision-intelligence/banner.svg" alt="Governed Decision Intelligence" width="1000">
 </picture>
 </h1>
 
